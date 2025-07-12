@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AnimationEngine } from '../utils/AnimationEngine';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const QuickSort = () => {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
@@ -80,8 +82,26 @@ const QuickSort = () => {
     setPartitioned([]);
   };
 
+  const handleArrayChange = (newArray) => {
+    setArray(newArray);
+    setPivot(-1);
+    setComparing([]);
+    setPartitioned([]);
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Quick Sort Visualization</h2>
+        <p>Time Complexity: O(n log n) avg, O(n²) worst | Space Complexity: O(log n) | Stable: No</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={sorting}
+        currentArray={array}
+      />
+
       <div className="controls">
         <button onClick={handleSort} disabled={sorting}>
           {sorting ? 'Sorting...' : 'Start Sort'}
@@ -118,36 +138,7 @@ const QuickSort = () => {
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Quick Sort Algorithm</h3>
-          <pre>
-{`function quickSort(arr, low = 0, high = arr.length - 1) {
-  if (low < high) {
-    const pivotIndex = partition(arr, low, high);
-    
-    quickSort(arr, low, pivotIndex - 1);
-    quickSort(arr, pivotIndex + 1, high);
-  }
-}
-
-function partition(arr, low, high) {
-  const pivot = arr[high];
-  let i = low - 1;
-  
-  for (let j = low; j < high; j++) {
-    if (arr[j] < pivot) {
-      i++;
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-  }
-  
-  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
-  return i + 1;
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="quickSort" />}
     </div>
   );
 };

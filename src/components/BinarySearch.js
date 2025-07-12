@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const BinarySearch = () => {
-  const [array] = useState([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
+  const [array, setArray] = useState([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
   const [target, setTarget] = useState(7);
   const [searching, setSearching] = useState(false);
   const [left, setLeft] = useState(-1);
@@ -57,8 +59,26 @@ const BinarySearch = () => {
     setFound(-1);
   };
 
+  const handleArrayChange = (newArray) => {
+    // Sort the array for binary search
+    const sortedArray = [...newArray].sort((a, b) => a - b);
+    setArray(sortedArray);
+    reset();
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Binary Search Visualization</h2>
+        <p>Time Complexity: O(log n) | Space Complexity: O(1) | Requires: Sorted Array</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={searching}
+        currentArray={array}
+      />
+
       <div className="controls">
         <input
           type="number"
@@ -91,32 +111,21 @@ const BinarySearch = () => {
             </div>
           ))}
         </div>
-        <div className="search-info">
-          {left !== -1 && <p>Left: {left}, Right: {right}</p>}
+        <div className="algorithm-info">
+          <p><strong>Binary Search:</strong> Efficiently search sorted arrays by dividing search space</p>
+          {left !== -1 && <p>Search Range: Left={left}, Right={right}</p>}
           {mid !== -1 && <p>Mid: {mid} (value: {array[mid]})</p>}
-          {found !== -1 && <p>Found at index: {found}</p>}
+          {found !== -1 && <p>✓ Found target {target} at index: {found}</p>}
+          {searching === false && found === -1 && left > right && <p>✗ Target {target} not found in array</p>}
+          <div className="legend">
+            <span className="legend-item range">Search Range</span>
+            <span className="legend-item mid">Mid Point</span>
+            <span className="legend-item found">Found</span>
+          </div>
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Binary Search Algorithm</h3>
-          <pre>
-{`function binarySearch(arr, target) {
-  let left = 0, right = arr.length - 1;
-  
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
-    
-    if (arr[mid] === target) return mid;
-    if (arr[mid] < target) left = mid + 1;
-    else right = mid - 1;
-  }
-  return -1;
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="binarySearch" />}
     </div>
   );
 };

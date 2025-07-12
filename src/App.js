@@ -4,6 +4,8 @@ import SelectionSort from './components/SelectionSort';
 import InsertionSort from './components/InsertionSort';
 import MergeSort from './components/MergeSort';
 import QuickSort from './components/QuickSort';
+import HeapSort from './components/HeapSort';
+import RadixSort from './components/RadixSort';
 import BinarySearch from './components/BinarySearch';
 import Stack from './components/Stack';
 import LearnPage from './components/LearnPage';
@@ -15,12 +17,28 @@ function App() {
   const { state, dispatch } = useApp();
   const { activeAlgorithm, currentPage } = state;
 
+  // Handle navigation from Learn page to Visualizer
+  React.useEffect(() => {
+    const handleNavigateToAlgorithm = (event) => {
+      const algorithmId = event.detail;
+      dispatch({ type: 'SET_ALGORITHM', payload: algorithmId });
+      dispatch({ type: 'SET_PAGE', payload: 'visualizer' });
+    };
+
+    window.addEventListener('navigateToAlgorithm', handleNavigateToAlgorithm);
+    return () => {
+      window.removeEventListener('navigateToAlgorithm', handleNavigateToAlgorithm);
+    };
+  }, [dispatch]);
+
   const algorithms = [
     { id: 'bubble-sort', name: 'Bubble Sort', component: BubbleSort },
     { id: 'selection-sort', name: 'Selection Sort', component: SelectionSort },
     { id: 'insertion-sort', name: 'Insertion Sort', component: InsertionSort },
     { id: 'merge-sort', name: 'Merge Sort', component: MergeSort },
     { id: 'quick-sort', name: 'Quick Sort', component: QuickSort },
+    { id: 'heap-sort', name: 'Heap Sort', component: HeapSort },
+    { id: 'radix-sort', name: 'Radix Sort', component: RadixSort },
     { id: 'binary-search', name: 'Binary Search', component: BinarySearch },
     { id: 'stack', name: 'Stack', component: Stack }
   ];
@@ -36,6 +54,26 @@ function App() {
           <div className="floating-shape shape-3"></div>
         </div>
         <div className="header-content">
+          <div className="header-top">
+            <div className="header-github">
+              <a 
+                href="https://github.com/param20h/DSA-visual" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="header-github-link"
+              >
+                🐈 GitHub
+              </a>
+              <a 
+                href="https://github.com/param20h/DSA-visual/stargazers" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="header-star-link"
+              >
+                ⭐ Star
+              </a>
+            </div>
+          </div>
           <div className="logo">
             <div className="logo-icon">
               <div className="binary-tree">
@@ -49,6 +87,20 @@ function App() {
           </div>
           <h1>DSA Visualizer</h1>
           <p>Interactive Data Structures and Algorithms</p>
+          <div className="header-stats">
+            <div className="stat-item">
+              <span className="stat-number">9+</span>
+              <span className="stat-label">Algorithms</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">4</span>
+              <span className="stat-label">Languages</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">100%</span>
+              <span className="stat-label">Interactive</span>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -97,28 +149,112 @@ function App() {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>DSA Visualizer</h3>
+            <h3>DSA Visualizer 🚀</h3>
             <p>Learn algorithms through interactive visualizations</p>
+            <div className="github-links">
+              <a 
+                href="https://github.com/param20h/DSA-visual" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="github-link"
+              >
+                🐈 View on GitHub
+              </a>
+              <a 
+                href="https://github.com/param20h/DSA-visual/stargazers" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="star-link"
+              >
+                ⭐ Star this Repository
+              </a>
+            </div>
           </div>
           <div className="footer-section">
             <h4>Algorithms</h4>
             <ul>
-              <li>Sorting Algorithms</li>
-              <li>Search Algorithms</li>
-              <li>Data Structures</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_PAGE', payload: 'learn' });
+                setTimeout(() => {
+                  const event = new CustomEvent('selectTopic', { detail: 'sorting' });
+                  window.dispatchEvent(event);
+                }, 100);
+              }}>Sorting Algorithms</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_PAGE', payload: 'learn' });
+                setTimeout(() => {
+                  const event = new CustomEvent('selectTopic', { detail: 'searching' });
+                  window.dispatchEvent(event);
+                }, 100);
+              }}>Search Algorithms</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_PAGE', payload: 'learn' });
+                setTimeout(() => {
+                  const event = new CustomEvent('selectTopic', { detail: 'dataStructures' });
+                  window.dispatchEvent(event);
+                }, 100);
+              }}>Data Structures</li>
             </ul>
           </div>
           <div className="footer-section">
-            <h4>Resources</h4>
+            <h4>Quick Access</h4>
             <ul>
-              <li>Documentation</li>
-              <li>Tutorials</li>
-              <li>GitHub</li>
+              <li onClick={() => dispatch({ type: 'SET_PAGE', payload: 'visualizer' })}>Visualizer</li>
+              <li onClick={() => dispatch({ type: 'SET_PAGE', payload: 'learn' })}>Learn</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_PAGE', payload: 'learn' });
+                setTimeout(() => {
+                  const event = new CustomEvent('selectTopic', { detail: 'complexity' });
+                  window.dispatchEvent(event);
+                }, 100);
+              }}>Complexity Analysis</li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Popular Algorithms</h4>
+            <ul>
+              <li onClick={() => {
+                dispatch({ type: 'SET_ALGORITHM', payload: 'quick-sort' });
+                dispatch({ type: 'SET_PAGE', payload: 'visualizer' });
+              }}>Quick Sort</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_ALGORITHM', payload: 'binary-search' });
+                dispatch({ type: 'SET_PAGE', payload: 'visualizer' });
+              }}>Binary Search</li>
+              <li onClick={() => {
+                dispatch({ type: 'SET_ALGORITHM', payload: 'merge-sort' });
+                dispatch({ type: 'SET_PAGE', payload: 'visualizer' });
+              }}>Merge Sort</li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2025 DSA Visualizer. Built with React</p>
+          <p>&copy; 2025 DSA Visualizer. Built with React ❤️</p>
+          <div className="footer-links">
+            <a 
+              href="https://github.com/param20h" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Made by @param20h
+            </a>
+            <span className="separator">|</span>
+            <a 
+              href="https://github.com/param20h/DSA-visual/issues" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Report Issues
+            </a>
+            <span className="separator">|</span>
+            <a 
+              href="https://github.com/param20h/DSA-visual/blob/main/README.md" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Documentation
+            </a>
+          </div>
         </div>
       </footer>
     </div>

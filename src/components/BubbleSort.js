@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const BubbleSort = () => {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
@@ -41,8 +43,25 @@ const BubbleSort = () => {
     setSwapping([]);
   };
 
+  const handleArrayChange = (newArray) => {
+    setArray(newArray);
+    setComparing([]);
+    setSwapping([]);
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Bubble Sort Visualization</h2>
+        <p>Time Complexity: O(n²) | Space Complexity: O(1) | Stable: Yes</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={sorting}
+        currentArray={array}
+      />
+
       <div className="controls">
         <button onClick={handleSort} disabled={sorting}>
           {sorting ? 'Sorting...' : 'Start Sort'}
@@ -69,23 +88,7 @@ const BubbleSort = () => {
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Bubble Sort Algorithm</h3>
-          <pre>
-{`function bubbleSort(arr) {
-  for (let i = 0; i < arr.length - 1; i++) {
-    for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-      }
-    }
-  }
-  return arr;
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="bubbleSort" />}
     </div>
   );
 };

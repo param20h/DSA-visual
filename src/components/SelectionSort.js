@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AnimationEngine } from '../utils/AnimationEngine';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const SelectionSort = () => {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
@@ -63,8 +65,26 @@ const SelectionSort = () => {
     setSorted([]);
   };
 
+  const handleArrayChange = (newArray) => {
+    setArray(newArray);
+    setCurrentMin(-1);
+    setComparing(-1);
+    setSorted([]);
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Selection Sort Visualization</h2>
+        <p>Time Complexity: O(n²) | Space Complexity: O(1) | Stable: No</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={sorting}
+        currentArray={array}
+      />
+
       <div className="controls">
         <button onClick={handleSort} disabled={sorting}>
           {sorting ? 'Sorting...' : 'Start Sort'}
@@ -94,32 +114,15 @@ const SelectionSort = () => {
           <p><strong>Selection Sort:</strong> Find minimum element and place at beginning</p>
           {currentMin !== -1 && <p>Current minimum at index: {currentMin}</p>}
           {comparing !== -1 && <p>Comparing with index: {comparing}</p>}
+          <div className="legend">
+            <span className="legend-item sorted">Sorted</span>
+            <span className="legend-item current-min">Current Min</span>
+            <span className="legend-item comparing-legend">Comparing</span>
+          </div>
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Selection Sort Algorithm</h3>
-          <pre>
-{`function selectionSort(arr) {
-  for (let i = 0; i < arr.length - 1; i++) {
-    let minIdx = i;
-    
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[minIdx]) {
-        minIdx = j;
-      }
-    }
-    
-    if (minIdx !== i) {
-      [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
-    }
-  }
-  return arr;
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="selectionSort" />}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CodeDisplay from './CodeDisplay';
 
 const Stack = () => {
   const [stack, setStack] = useState([]);
@@ -24,6 +25,11 @@ const Stack = () => {
 
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Stack Data Structure</h2>
+        <p>LIFO (Last In, First Out) | Push/Pop: O(1) | Space: O(n)</p>
+      </div>
+
       <div className="controls">
         <input
           type="text"
@@ -43,54 +49,42 @@ const Stack = () => {
       <div className="visualization">
         <div className="stack-container">
           <div className="stack-info">
-            <p>Size: {stack.length}</p>
-            <p>Top: {stack.length > 0 ? stack[stack.length - 1] : 'Empty'}</p>
+            <h3>Stack Operations</h3>
+            <p><strong>Size:</strong> {stack.length}</p>
+            <p><strong>Top Element:</strong> {stack.length > 0 ? stack[stack.length - 1] : 'Empty'}</p>
+            <div className="operations-info">
+              <p>🔼 <strong>Push:</strong> Add element to top</p>
+              <p>🔽 <strong>Pop:</strong> Remove element from top</p>
+              <p>👁️ <strong>Peek:</strong> View top element</p>
+            </div>
           </div>
           <div className="stack-visual">
+            <div className="stack-label">TOP</div>
             {stack.length === 0 ? (
-              <div className="empty-stack">Stack is empty</div>
+              <div className="empty-stack">
+                <div className="empty-message">
+                  📦 Stack is empty
+                  <br />
+                  <small>Add elements using Push</small>
+                </div>
+              </div>
             ) : (
               stack.slice().reverse().map((item, index) => (
                 <div
                   key={stack.length - 1 - index}
                   className={`stack-item ${index === 0 ? 'top' : ''}`}
                 >
-                  {item}
+                  <span className="item-value">{item}</span>
+                  {index === 0 && <span className="top-indicator">← TOP</span>}
                 </div>
               ))
             )}
+            <div className="stack-base">BOTTOM</div>
           </div>
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Stack Data Structure</h3>
-          <pre>
-{`class Stack {
-  constructor() {
-    this.items = [];
-  }
-  
-  push(element) {
-    this.items.push(element);
-  }
-  
-  pop() {
-    return this.items.pop();
-  }
-  
-  peek() {
-    return this.items[this.items.length - 1];
-  }
-  
-  isEmpty() {
-    return this.items.length === 0;
-  }
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="stack" />}
     </div>
   );
 };

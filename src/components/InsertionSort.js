@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AnimationEngine } from '../utils/AnimationEngine';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const InsertionSort = () => {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
@@ -61,8 +63,26 @@ const InsertionSort = () => {
     setSorted([0]);
   };
 
+  const handleArrayChange = (newArray) => {
+    setArray(newArray);
+    setCurrentKey(-1);
+    setComparing(-1);
+    setSorted([0]);
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Insertion Sort Visualization</h2>
+        <p>Time Complexity: O(n²) | Space Complexity: O(1) | Stable: Yes</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={sorting}
+        currentArray={array}
+      />
+
       <div className="controls">
         <button onClick={handleSort} disabled={sorting}>
           {sorting ? 'Sorting...' : 'Start Sort'}
@@ -92,30 +112,15 @@ const InsertionSort = () => {
           <p><strong>Insertion Sort:</strong> Build sorted array one element at a time</p>
           {currentKey !== -1 && <p>Inserting key: {array[currentKey]} from index {currentKey}</p>}
           {comparing !== -1 && <p>Comparing with index: {comparing}</p>}
+          <div className="legend">
+            <span className="legend-item sorted">Sorted</span>
+            <span className="legend-item current-key">Current Key</span>
+            <span className="legend-item comparing-legend">Comparing</span>
+          </div>
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Insertion Sort Algorithm</h3>
-          <pre>
-{`function insertionSort(arr) {
-  for (let i = 1; i < arr.length; i++) {
-    let key = arr[i];
-    let j = i - 1;
-    
-    while (j >= 0 && arr[j] > key) {
-      arr[j + 1] = arr[j];
-      j--;
-    }
-    
-    arr[j + 1] = key;
-  }
-  return arr;
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="insertionSort" />}
     </div>
   );
 };

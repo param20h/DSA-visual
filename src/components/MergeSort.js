@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AnimationEngine } from '../utils/AnimationEngine';
+import CodeDisplay from './CodeDisplay';
+import NumberInput from './NumberInput';
 
 const MergeSort = () => {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90, 88]);
@@ -104,8 +106,26 @@ const MergeSort = () => {
     setMerging([]);
   };
 
+  const handleArrayChange = (newArray) => {
+    setArray(newArray);
+    setLeftSection([]);
+    setRightSection([]);
+    setMerging([]);
+  };
+
   return (
     <div className="algorithm-container">
+      <div className="algorithm-header">
+        <h2>Merge Sort Visualization</h2>
+        <p>Time Complexity: O(n log n) | Space Complexity: O(n) | Stable: Yes</p>
+      </div>
+
+      <NumberInput 
+        onArrayChange={handleArrayChange}
+        disabled={sorting}
+        currentArray={array}
+      />
+
       <div className="controls">
         <button onClick={handleSort} disabled={sorting}>
           {sorting ? 'Sorting...' : 'Start Sort'}
@@ -141,40 +161,7 @@ const MergeSort = () => {
         </div>
       </div>
 
-      {showCode && (
-        <div className="code-section">
-          <h3>Merge Sort Algorithm</h3>
-          <pre>
-{`function mergeSort(arr, start = 0, end = arr.length - 1) {
-  if (start >= end) return;
-  
-  const mid = Math.floor((start + end) / 2);
-  
-  mergeSort(arr, start, mid);
-  mergeSort(arr, mid + 1, end);
-  merge(arr, start, mid, end);
-}
-
-function merge(arr, start, mid, end) {
-  const left = arr.slice(start, mid + 1);
-  const right = arr.slice(mid + 1, end + 1);
-  
-  let i = 0, j = 0, k = start;
-  
-  while (i < left.length && j < right.length) {
-    if (left[i] <= right[j]) {
-      arr[k++] = left[i++];
-    } else {
-      arr[k++] = right[j++];
-    }
-  }
-  
-  while (i < left.length) arr[k++] = left[i++];
-  while (j < right.length) arr[k++] = right[j++];
-}`}
-          </pre>
-        </div>
-      )}
+      {showCode && <CodeDisplay algorithm="mergeSort" />}
     </div>
   );
 };
