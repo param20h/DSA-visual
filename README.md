@@ -144,7 +144,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 - GitHub: [@param20h](https://github.com/param20h)
-- Email: your.email@example.com
 
 ---
 
