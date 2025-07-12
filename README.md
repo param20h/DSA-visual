@@ -31,8 +31,8 @@ An interactive web application for visualizing Data Structures and Algorithms bu
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/dsa-visualizer.git
-cd dsa-visualizer
+git clone https://github.com/param20h/DSA-visual.git
+cd DSA-visual
 ```
 
 2. Install dependencies:
@@ -143,7 +143,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- GitHub: [@yourusername](https://github.com/yourusername)
+- GitHub: [@param20h](https://github.com/param20h)
 - Email: your.email@example.com
 
 ---
