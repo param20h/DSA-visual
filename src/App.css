@@ -402,6 +402,7 @@
   margin-bottom: 40px;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
 .controls input {
@@ -1551,6 +1552,324 @@
   .visualize-btn {
     padding: 12px 25px;
     font-size: 1rem;
+  }
+}
+
+/* Queue Styles */
+.queue-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.queue-info {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 250px;
+}
+
+.queue-visual {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 40px 20px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  min-width: 300px;
+  position: relative;
+}
+
+.queue-label {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.queue-label.front {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+}
+
+.queue-label.rear {
+  position: absolute;
+  bottom: -12px;
+  right: 20px;
+}
+
+.queue-items {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.queue-item {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 60px;
+  transition: all 0.3s;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  margin: 15px 5px;
+}
+
+.queue-item.front-item {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  transform: scale(1.05);
+}
+
+.queue-item.rear-item {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+}
+
+.position-indicator {
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.front-indicator {
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rear-indicator {
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.empty-queue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 100%;
+}
+
+/* LinkedList Styles */
+.linkedlist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.list-info {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  min-width: 300px;
+}
+
+.list-visual {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  overflow-x: auto;
+  width: 100%;
+  min-height: 120px;
+}
+
+.nodes-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding: 10px;
+  min-height: 80px;
+}
+
+.head-label {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.node-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.node {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  border-radius: 12px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 80px;
+}
+
+.node-data {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.node-pointer {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.delete-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background: #ff3742;
+  transform: scale(1.1);
+}
+
+.connection-line {
+  width: 20px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
+}
+
+.null-node {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
+.empty-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.index-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.index-input {
+  width: 80px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.index-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.target-input, .queue-input, .list-input {
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  min-width: 120px;
+}
+
+.target-input:focus, .queue-input:focus, .list-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+@media (max-width: 768px) {
+  .queue-container, .linkedlist-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+  
+  .queue-info, .list-info {
+    min-width: auto;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .queue-visual, .list-visual {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .nodes-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .connection-line {
+    width: 2px;
+    height: 20px;
+    margin: 5px 0;
+    transform: rotate(90deg);
+  }
+  
+  .head-label {
+    margin-bottom: 10px;
+  }
+  
+  .index-controls {
+    flex-direction: column;
+    gap: 5px;
   }
 }
 

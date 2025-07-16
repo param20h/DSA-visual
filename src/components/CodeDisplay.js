@@ -775,6 +775,377 @@ public:
         return items.size();
     }
 };`
+    },
+    linearSearch: {
+      javascript: `function linearSearch(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+}`,
+      python: `def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1`,
+      java: `public static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}`,
+      cpp: `int linearSearch(vector<int>& arr, int target) {
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}`
+    },
+    queue: {
+      javascript: `class Queue {
+  constructor() {
+    this.items = [];
+  }
+  
+  enqueue(element) {
+    this.items.push(element);
+    return this.items.length;
+  }
+  
+  dequeue() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.items.shift();
+  }
+  
+  front() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.items[0];
+  }
+  
+  isEmpty() {
+    return this.items.length === 0;
+  }
+  
+  size() {
+    return this.items.length;
+  }
+}`,
+      python: `class Queue:
+    def __init__(self):
+        self.items = []
+    
+    def enqueue(self, element):
+        self.items.append(element)
+        return len(self.items)
+    
+    def dequeue(self):
+        if self.is_empty():
+            return None
+        return self.items.pop(0)
+    
+    def front(self):
+        if self.is_empty():
+            return None
+        return self.items[0]
+    
+    def is_empty(self):
+        return len(self.items) == 0
+    
+    def size(self):
+        return len(self.items)`,
+      java: `import java.util.ArrayList;
+import java.util.List;
+
+public class Queue<T> {
+    private List<T> items;
+    
+    public Queue() {
+        this.items = new ArrayList<>();
+    }
+    
+    public int enqueue(T element) {
+        items.add(element);
+        return items.size();
+    }
+    
+    public T dequeue() {
+        if (isEmpty()) {
+            return null;
+        }
+        return items.remove(0);
+    }
+    
+    public T front() {
+        if (isEmpty()) {
+            return null;
+        }
+        return items.get(0);
+    }
+    
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+    
+    public int size() {
+        return items.size();
+    }
+}`,
+      cpp: `#include <deque>
+
+template<typename T>
+class Queue {
+private:
+    std::deque<T> items;
+    
+public:
+    int enqueue(const T& element) {
+        items.push_back(element);
+        return items.size();
+    }
+    
+    T dequeue() {
+        if (isEmpty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+        T front = items.front();
+        items.pop_front();
+        return front;
+    }
+    
+    T front() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Queue is empty");
+        }
+        return items.front();
+    }
+    
+    bool isEmpty() const {
+        return items.empty();
+    }
+    
+    size_t size() const {
+        return items.size();
+    }
+};`
+    },
+    linkedList: {
+      javascript: `class ListNode {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
+  
+  insertAtHead(data) {
+    const newNode = new ListNode(data);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.size++;
+  }
+  
+  insertAtTail(data) {
+    const newNode = new ListNode(data);
+    if (!this.head) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+    this.size++;
+  }
+  
+  deleteAtIndex(index) {
+    if (index < 0 || index >= this.size) return false;
+    
+    if (index === 0) {
+      this.head = this.head.next;
+    } else {
+      let current = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        current = current.next;
+      }
+      current.next = current.next.next;
+    }
+    this.size--;
+    return true;
+  }
+}`,
+      python: `class ListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.size = 0
+    
+    def insert_at_head(self, data):
+        new_node = ListNode(data)
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
+    
+    def insert_at_tail(self, data):
+        new_node = ListNode(data)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+        self.size += 1
+    
+    def delete_at_index(self, index):
+        if index < 0 or index >= self.size:
+            return False
+        
+        if index == 0:
+            self.head = self.head.next
+        else:
+            current = self.head
+            for i in range(index - 1):
+                current = current.next
+            current.next = current.next.next
+        
+        self.size -= 1
+        return True`,
+      java: `class ListNode {
+    int data;
+    ListNode next;
+    
+    ListNode(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    private ListNode head;
+    private int size;
+    
+    public LinkedList() {
+        this.head = null;
+        this.size = 0;
+    }
+    
+    public void insertAtHead(int data) {
+        ListNode newNode = new ListNode(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+    
+    public void insertAtTail(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            ListNode current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        size++;
+    }
+    
+    public boolean deleteAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        
+        if (index == 0) {
+            head = head.next;
+        } else {
+            ListNode current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+            current.next = current.next.next;
+        }
+        size--;
+        return true;
+    }
+}`,
+      cpp: `struct ListNode {
+    int data;
+    ListNode* next;
+    
+    ListNode(int data) : data(data), next(nullptr) {}
+};
+
+class LinkedList {
+private:
+    ListNode* head;
+    int size;
+    
+public:
+    LinkedList() : head(nullptr), size(0) {}
+    
+    void insertAtHead(int data) {
+        ListNode* newNode = new ListNode(data);
+        newNode->next = head;
+        head = newNode;
+        size++;
+    }
+    
+    void insertAtTail(int data) {
+        ListNode* newNode = new ListNode(data);
+        if (!head) {
+            head = newNode;
+        } else {
+            ListNode* current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+        size++;
+    }
+    
+    bool deleteAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        
+        if (index == 0) {
+            ListNode* temp = head;
+            head = head->next;
+            delete temp;
+        } else {
+            ListNode* current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current->next;
+            }
+            ListNode* temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
+        size--;
+        return true;
+    }
+};`
     }
   };
 
@@ -798,7 +1169,10 @@ public:
       quickSort: 'Quick Sort',
       mergeSort: 'Merge Sort',
       binarySearch: 'Binary Search',
-      stack: 'Stack Data Structure'
+      linearSearch: 'Linear Search',
+      stack: 'Stack Data Structure',
+      queue: 'Queue Data Structure',
+      linkedList: 'Linked List Data Structure'
     };
     return titles[alg] || 'Algorithm';
   };

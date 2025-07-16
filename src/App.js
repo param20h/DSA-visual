@@ -7,7 +7,10 @@ import QuickSort from './components/QuickSort';
 import HeapSort from './components/HeapSort';
 import RadixSort from './components/RadixSort';
 import BinarySearch from './components/BinarySearch';
+import LinearSearch from './components/LinearSearch';
 import Stack from './components/Stack';
+import Queue from './components/Queue';
+import LinkedList from './components/LinkedList';
 import LearnPage from './components/LearnPage';
 import { useApp } from './context/AppContext';
 import { getImplementedAlgorithms } from './utils/AlgorithmRegistry';
@@ -40,7 +43,10 @@ function App() {
     { id: 'heap-sort', name: 'Heap Sort', component: HeapSort },
     { id: 'radix-sort', name: 'Radix Sort', component: RadixSort },
     { id: 'binary-search', name: 'Binary Search', component: BinarySearch },
-    { id: 'stack', name: 'Stack', component: Stack }
+    { id: 'linear-search', name: 'Linear Search', component: LinearSearch },
+    { id: 'stack', name: 'Stack', component: Stack },
+    { id: 'queue', name: 'Queue', component: Queue },
+    { id: 'linked-list', name: 'Linked List', component: LinkedList }
   ];
 
   const ActiveComponent = algorithms.find(alg => alg.id === activeAlgorithm)?.component;
