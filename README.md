@@ -207,7 +207,7 @@ We welcome contributions! Here are some ways you can help:
 
 ## 📊 Project Stats
 
-- **9+ Algorithms** implemented with visualizations
+- **10+ Algorithms** implemented with visualizations
 - **4 Programming Languages** for code examples
 - **100% Interactive** - every algorithm is fully animated
 - **Mobile Responsive** - works on all devices
